@@ -17,3 +17,14 @@ dropZone.addEventListener('dragover', (e) => {
 dropZone.addEventListener('dragleave', () => {
     dropZone.classList.remove('drag-over');
 });
+
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const files = e.dataTransfer.files;
+    if (files.length > 0) handleUpload(files[0]);
+});
+
+fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) handleUpload(fileInput.files[0]);
+});
