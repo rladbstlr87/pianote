@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,38 +8,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <header>
             <h1 class="logo">Pianote</h1>
             <p class="subtitle">AI 기반 고해상도 피아노 음원 변환기</p>
         </header>
-
-        <main>
-            <div id="drop-zone" class="glass-panel">
-                <div class="upload-icon">🎹</div>
-                <p>음원 파일을 드래그하거나 클릭하여 업로드하세요</p>
-                <input type="file" id="file-input" accept="audio/*" hidden>
-                <button id="upload-btn" class="primary-btn">파일 선택</button>
-            </div>
-
-            <div id="status-container" class="glass-panel hidden">
-                <div class="loader"></div>
-                <p id="status-text">변환 중입니다... (최대 1~2분 소요)</p>
-            </div>
-
-            <div id="result-container" class="glass-panel hidden">
-                <div class="success-icon">✨</div>
-                <p>변환이 완벽하게 완료되었습니다!</p>
-                <a id="download-link" href="#" class="primary-btn">MIDI 파일 다운로드</a>
-                <button id="reset-btn" class="secondary-btn">다시 하기</button>
-            </div>
-        </main>
-
-        <footer>
-            <p>&copy; 2025 Pianote SOTA Engine. Powered by ByteDance AI & Flask.</p>
-        </footer>
     </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>
