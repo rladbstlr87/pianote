@@ -8,3 +8,12 @@ const resetBtn = document.getElementById('reset-btn');
 const statusText = document.getElementById('status-text');
 
 uploadBtn.addEventListener('click', () => fileInput.click());
+
+dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+});
+
+dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('drag-over');
+});
