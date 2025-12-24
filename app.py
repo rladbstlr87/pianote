@@ -21,6 +21,27 @@ transcriptor = PianoTranscription(device=device, checkpoint_path=None)
 def index():
     return render_template('index.html')
 
+@app.route('/transcribe', methods=['POST'])
+def transcribe():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part"}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "No selected file"}), 400
+    if file:
+        file_id = str(uuid.uuid4())
+        filename = secure_filename(file.filename)
+        input_path = os.path.join(UPLOAD_FOLDER, f"{file_id}_{filename}")
+        output_name = os.path.splitext(filename)[0] + ".mid"
+        output_path = os.path.join(OUTPUT_FOLDER, f"{file_id}_{output_name}")
+        file.save(input_path)
+        try:
+            (audio, _) = load_audio(input_path, sr=sample_rate, mono=True)
+            transcriptor.transcribe(audio, output_path)
+            return jsonify({"success": True, "midi_url": f"/download/{file_id}/{output_name}"})
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
 @app.route('/download/<file_id>/<filename>')
 def download_file(file_id, filename):
     safe_filename = secure_filename(filename)
@@ -28,3 +49,6 @@ def download_file(file_id, filename):
     if os.path.exists(path):
         return send_file(path, as_attachment=True)
     return jsonify({"error": "File not found"}), 404
+
+if __name__ == '__main__':
+    app.run(debug=False, port=5000)
