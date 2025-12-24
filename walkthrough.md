@@ -11,3 +11,7 @@
 - **Engine**: ByteDance High-res Piano Transcription
 - **Backend**: Flask
 - **Frontend**: Vanilla HTML5, CSS3, JS
+
+## 📖 사용 방법
+- `python app.py` 실행 후 `localhost:5000` 접속
+- 음원 업로드 시 즉시 MIDI 변환 및 다운로드 가능
