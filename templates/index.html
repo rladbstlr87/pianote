@@ -23,8 +23,25 @@
                 <input type="file" id="file-input" accept="audio/*" hidden>
                 <button id="upload-btn" class="primary-btn">파일 선택</button>
             </div>
+
+            <div id="status-container" class="glass-panel hidden">
+                <div class="loader"></div>
+                <p id="status-text">변환 중입니다... (최대 1~2분 소요)</p>
+            </div>
+
+            <div id="result-container" class="glass-panel hidden">
+                <div class="success-icon">✨</div>
+                <p>변환이 완벽하게 완료되었습니다!</p>
+                <a id="download-link" href="#" class="primary-btn">MIDI 파일 다운로드</a>
+                <button id="reset-btn" class="secondary-btn">다시 하기</button>
+            </div>
         </main>
+
+        <footer>
+            <p>&copy; 2025 Pianote SOTA Engine.</p>
+        </footer>
     </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>
