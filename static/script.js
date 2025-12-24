@@ -28,3 +28,40 @@ dropZone.addEventListener('drop', (e) => {
 fileInput.addEventListener('change', () => {
     if (fileInput.files.length > 0) handleUpload(fileInput.files[0]);
 });
+
+function handleUpload(file) {
+    if (!file.type.startsWith('audio/')) {
+        alert('오디오 파일만 업로드 가능합니다.');
+        return;
+    }
+    dropZone.classList.add('hidden');
+    statusContainer.classList.remove('hidden');
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('/transcribe', { method: 'POST', body: formData })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                statusContainer.classList.add('hidden');
+                resultContainer.classList.remove('hidden');
+                downloadLink.href = data.midi_url;
+            } else {
+                throw new Error(data.error || '변환 실패');
+            }
+        })
+        .catch(error => {
+            alert('오류 발생: ' + error.message);
+            resetUI();
+        });
+}
+
+function resetUI() {
+    dropZone.classList.remove('hidden');
+    statusContainer.classList.add('hidden');
+    resultContainer.classList.add('hidden');
+    fileInput.value = '';
+}
+
+resetBtn.addEventListener('click', resetUI);
