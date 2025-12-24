@@ -1,0 +1,12 @@
+basic-pitch
+tensorflow
+librosa
+mido
+music21
+torch
+torchvision
+torchaudio
+piano_transcription_inference
+flask
+flask-cors
+importlib-resources
