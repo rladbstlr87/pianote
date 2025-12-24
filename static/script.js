@@ -30,8 +30,11 @@ fileInput.addEventListener('change', () => {
 });
 
 function handleUpload(file) {
-    if (!file.type.startsWith('audio/')) {
-        alert('오디오 파일만 업로드 가능합니다.');
+    const isAudio = file.type.startsWith('audio/');
+    const isVideo = file.type.startsWith('video/');
+
+    if (!isAudio && !isVideo) {
+        alert('지원되는 오디오 또는 동영상 파일만 업로드 가능합니다.');
         return;
     }
     dropZone.classList.add('hidden');
